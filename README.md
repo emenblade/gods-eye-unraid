@@ -152,8 +152,10 @@ runtime.
 Browsers only grant microphone access on HTTPS (or `localhost`). Voice control
 therefore needs a TLS reverse proxy (Nginx Proxy Manager, SWAG, Caddy, Traefik,
 and so on) in front of `http://YOUR-SERVER-IP:4173`. Add the proxy hostname to
-`GEV_ALLOWED_HOSTS` and restart the container. Every non-microphone feature
-works over plain HTTP on the LAN.
+`GEV_ALLOWED_HOSTS` and restart the container. Enable WebSocket upgrade support
+in the proxy as well: live vessels, HLS camera video and the Realtime voice
+session all use long-lived connections. Every non-microphone feature works over
+plain HTTP on the LAN.
 
 ## Security notes
 
