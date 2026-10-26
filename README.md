@@ -147,6 +147,14 @@ runtime.
 
 ---
 
+## Voice and HTTPS
+
+Browsers only grant microphone access on HTTPS (or `localhost`). Voice control
+therefore needs a TLS reverse proxy (Nginx Proxy Manager, SWAG, Caddy, Traefik,
+and so on) in front of `http://YOUR-SERVER-IP:4173`. Add the proxy hostname to
+`GEV_ALLOWED_HOSTS` and restart the container. Every non-microphone feature
+works over plain HTTP on the LAN.
+
 ## Security notes
 
 - The container brokers provider API keys. Keep it on your LAN or behind your
