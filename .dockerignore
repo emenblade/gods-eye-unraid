@@ -1,0 +1,12 @@
+.git
+.github
+appdata
+.env
+.env.*
+*.log
+README.md
+unraid
+docker-compose.yml
+icon.png
+icon.svg
+LICENSE

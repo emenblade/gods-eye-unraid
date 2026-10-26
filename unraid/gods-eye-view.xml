@@ -1,0 +1,163 @@
+<?xml version="1.0"?>
+<Container version="2">
+  <Name>Gods-Eye-View</Name>
+  <Repository>ghcr.io/emenblade/gods-eye-unraid:latest</Repository>
+  <Registry>https://github.com/emenblade/gods-eye-unraid/pkgs/container/gods-eye-unraid</Registry>
+  <Network>bridge</Network>
+  <MyIP/>
+  <Shell>sh</Shell>
+  <Privileged>false</Privileged>
+  <Support>https://github.com/emenblade/gods-eye-unraid/issues</Support>
+  <Project>https://github.com/bilawalsidhu/gods-eye-view</Project>
+  <Overview>God's Eye View is a live open-source spatial intelligence globe: real flights, ships, satellites, earthquakes, public cameras, weather, radio and more, on a photorealistic 3D planet. This template runs it as a local web server. No API keys are required to start.</Overview>
+  <Category>Tools:Utilities</Category>
+  <WebUI>http://[IP]:[PORT:4173]/</WebUI>
+  <TemplateURL>https://raw.githubusercontent.com/emenblade/gods-eye-unraid/main/unraid/gods-eye-view.xml</TemplateURL>
+  <Icon>https://raw.githubusercontent.com/emenblade/gods-eye-unraid/main/icon.png</Icon>
+  <ExtraParams/>
+  <PostArgs/>
+  <CPUset/>
+  <DateInstalled>0</DateInstalled>
+  <DonateText/>
+  <DonateLink/>
+  <Description>God's Eye View by Bilawal Sidhu (upstream: github.com/bilawalsidhu/gods-eye-view, MIT). Unofficial Unraid packaging by emenblade.
+
+Open the WebUI at http://YOUR-SERVER-IP:4173 after the container starts.
+
+Keys are optional and are set as container variables below (toggle "Show more settings" in the Unraid template). The in-app POWER UP panel is disabled over LAN by upstream design, so use these variables instead:
+- CESIUM_ION_TOKEN: free Cesium ion token, enables Google Photorealistic 3D cities and world terrain.
+- GOOGLE_MAPS_API_KEY: metered Google Maps key, direct Photorealistic 3D plus Google place search.
+- GOOGLE_MAPS_SERVER_API_KEY: optional separate server-side key for Places and Street View.
+- MAPILLARY_CLIENT_TOKEN: free Mapillary client token for the Street Level photos layer.
+- OPENAI_API_KEY: metered, enables voice control and the AI HUD summary.
+- AISSTREAM_API_KEY: free, enables live vessels.
+- FIRMS_MAP_KEY: free NASA FIRMS key, enables active fires.
+- TOMTOM_API_KEY: free tier, enables live traffic flow speeds.
+- OPENSKY_CLIENT_ID and OPENSKY_CLIENT_SECRET: optional, raises flight polling limits. Anonymous access works without them.
+- LL2_API_TOKEN: optional, raises the Launch Library 2 allowance.
+
+If you reach the app by hostname (for example tower.local or a reverse-proxy name) rather than by IP, add that hostname to GEV_ALLOWED_HOSTS, comma separated. IP addresses always work.
+
+Cache and log data are stored under /mnt/user/appdata/gods-eye-view. Restarting the container applies any changed keys.</Description>
+  <Networking>
+    <Mode>bridge</Mode>
+    <Publish>
+      <Port>
+        <HostPort>4173</HostPort>
+        <ContainerPort>4173</ContainerPort>
+        <Protocol>tcp</Protocol>
+      </Port>
+    </Publish>
+  </Networking>
+  <Data>
+    <Volume>
+      <HostDir>/mnt/user/appdata/gods-eye-view/cache</HostDir>
+      <ContainerDir>/app/.gev-cache</ContainerDir>
+      <Mode>rw</Mode>
+    </Volume>
+    <Volume>
+      <HostDir>/mnt/user/appdata/gods-eye-view/logs</HostDir>
+      <ContainerDir>/app/.gev-logs</ContainerDir>
+      <Mode>rw</Mode>
+    </Volume>
+  </Data>
+  <Environment>
+    <Variable>
+      <Value>0.0.0.0</Value>
+      <Name>HOST</Name>
+      <Mode/>
+    </Variable>
+    <Variable>
+      <Value>4173</Value>
+      <Name>PORT</Name>
+      <Mode/>
+    </Variable>
+    <Variable>
+      <Value/>
+      <Name>GEV_ALLOWED_HOSTS</Name>
+      <Mode/>
+    </Variable>
+    <Variable>
+      <Value/>
+      <Name>CESIUM_ION_TOKEN</Name>
+      <Mode/>
+    </Variable>
+    <Variable>
+      <Value/>
+      <Name>GOOGLE_MAPS_API_KEY</Name>
+      <Mode/>
+    </Variable>
+    <Variable>
+      <Value/>
+      <Name>GOOGLE_MAPS_SERVER_API_KEY</Name>
+      <Mode/>
+    </Variable>
+    <Variable>
+      <Value/>
+      <Name>MAPILLARY_CLIENT_TOKEN</Name>
+      <Mode/>
+    </Variable>
+    <Variable>
+      <Value/>
+      <Name>OPENAI_API_KEY</Name>
+      <Mode/>
+    </Variable>
+    <Variable>
+      <Value/>
+      <Name>AISSTREAM_API_KEY</Name>
+      <Mode/>
+    </Variable>
+    <Variable>
+      <Value/>
+      <Name>FIRMS_MAP_KEY</Name>
+      <Mode/>
+    </Variable>
+    <Variable>
+      <Value/>
+      <Name>TOMTOM_API_KEY</Name>
+      <Mode/>
+    </Variable>
+    <Variable>
+      <Value/>
+      <Name>OPENSKY_CLIENT_ID</Name>
+      <Mode/>
+    </Variable>
+    <Variable>
+      <Value/>
+      <Name>OPENSKY_CLIENT_SECRET</Name>
+      <Mode/>
+    </Variable>
+    <Variable>
+      <Value/>
+      <Name>LL2_API_TOKEN</Name>
+      <Mode/>
+    </Variable>
+    <Variable>
+      <Value/>
+      <Name>GEV_RATELIMIT_OPENAI_PER_MIN</Name>
+      <Mode/>
+    </Variable>
+    <Variable>
+      <Value/>
+      <Name>GEV_RATELIMIT_GOOGLE_PER_MIN</Name>
+      <Mode/>
+    </Variable>
+  </Environment>
+  <Config Name="WebUI Port" Target="4173" Default="4173" Mode="tcp" Description="Port for the web interface. Change the host port here, leave the container port at 4173." Type="Port" Display="always" Required="true" Mask="false">4173</Config>
+  <Config Name="Cache" Target="/app/.gev-cache" Default="/mnt/user/appdata/gods-eye-view/cache" Mode="rw" Description="Persistent upstream data caches (satellites, terrain, traffic, imagery tiles). Safe to delete while stopped." Type="Path" Display="always" Required="false" Mask="false">/mnt/user/appdata/gods-eye-view/cache</Config>
+  <Config Name="Logs" Target="/app/.gev-logs" Default="/mnt/user/appdata/gods-eye-view/logs" Mode="rw" Description="Application logs (voice session debug logs are opt-in and content-free by default)." Type="Path" Display="always" Required="false" Mask="false">/mnt/user/appdata/gods-eye-view/logs</Config>
+  <Config Name="Allowed hostnames" Target="GEV_ALLOWED_HOSTS" Default="" Mode="" Description="Comma-separated hostnames, for example tower.local,globe.mydomain.tld. Required only when you open the app by name instead of by IP address." Type="Variable" Display="advanced" Required="false" Mask="false"></Config>
+  <Config Name="Cesium ion token" Target="CESIUM_ION_TOKEN" Default="" Mode="" Description="Free token from cesium.com/ion. Enables Google Photorealistic 3D cities and world terrain. Eligible personal, non-commercial use." Type="Variable" Display="advanced" Required="false" Mask="true"></Config>
+  <Config Name="Google Maps API key" Target="GOOGLE_MAPS_API_KEY" Default="" Mode="" Description="Optional metered Google Maps key. Direct Photorealistic 3D Tiles plus Google place search. Restrict it at Google Cloud." Type="Variable" Display="advanced" Required="false" Mask="true"></Config>
+  <Config Name="Google server API key" Target="GOOGLE_MAPS_SERVER_API_KEY" Default="" Mode="" Description="Optional separate server-side Google key for Places and Street View. Falls back to the Google Maps API key when empty." Type="Variable" Display="advanced" Required="false" Mask="true"></Config>
+  <Config Name="Mapillary client token" Target="MAPILLARY_CLIENT_TOKEN" Default="" Mode="" Description="Free Mapillary client token from mapillary.com/dashboard/developers. Enables the Street Level photos layer." Type="Variable" Display="advanced" Required="false" Mask="true"></Config>
+  <Config Name="OpenAI API key" Target="OPENAI_API_KEY" Default="" Mode="" Description="Optional metered OpenAI key. Enables voice control and the AI HUD summary." Type="Variable" Display="advanced" Required="false" Mask="true"></Config>
+  <Config Name="AISStream API key" Target="AISSTREAM_API_KEY" Default="" Mode="" Description="Free key from aisstream.io. Enables the live vessels layer." Type="Variable" Display="advanced" Required="false" Mask="true"></Config>
+  <Config Name="NASA FIRMS map key" Target="FIRMS_MAP_KEY" Default="" Mode="" Description="Free key from firms.modaps.eosdis.nasa.gov. Enables the active fires layer." Type="Variable" Display="advanced" Required="false" Mask="true"></Config>
+  <Config Name="TomTom API key" Target="TOMTOM_API_KEY" Default="" Mode="" Description="Free-tier key from my.tomtom.com. Enables live traffic flow speeds. The layer still simulates traffic without it." Type="Variable" Display="advanced" Required="false" Mask="true"></Config>
+  <Config Name="OpenSky client ID" Target="OPENSKY_CLIENT_ID" Default="" Mode="" Description="Optional OpenSky OAuth client ID. Raises flight polling limits; anonymous access works without it." Type="Variable" Display="advanced" Required="false" Mask="false"></Config>
+  <Config Name="OpenSky client secret" Target="OPENSKY_CLIENT_SECRET" Default="" Mode="" Description="Optional OpenSky OAuth client secret." Type="Variable" Display="advanced" Required="false" Mask="true"></Config>
+  <Config Name="Launch Library 2 token" Target="LL2_API_TOKEN" Default="" Mode="" Description="Optional Launch Library 2 token. Raises the space missions request allowance." Type="Variable" Display="advanced" Required="false" Mask="true"></Config>
+  <Config Name="OpenAI rate limit per minute" Target="GEV_RATELIMIT_OPENAI_PER_MIN" Default="" Mode="" Description="Per-IP request limit for OpenAI cost endpoints. Blank uses the upstream default of 30. This is a guard, not a billing cap." Type="Variable" Display="advanced" Required="false" Mask="false"></Config>
+  <Config Name="Google rate limit per minute" Target="GEV_RATELIMIT_GOOGLE_PER_MIN" Default="" Mode="" Description="Per-IP request limit for Google Places endpoints. Blank uses the upstream default of 120. This is a guard, not a billing cap." Type="Variable" Display="advanced" Required="false" Mask="false"></Config>
+</Container>

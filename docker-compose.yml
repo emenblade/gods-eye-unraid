@@ -1,0 +1,25 @@
+services:
+  gods-eye-view:
+    image: ghcr.io/emenblade/gods-eye-unraid:latest
+    container_name: Gods-Eye-View
+    restart: unless-stopped
+    ports:
+      - "4173:4173"
+    volumes:
+      - ./appdata/cache:/app/.gev-cache
+      - ./appdata/logs:/app/.gev-logs
+    environment:
+      GEV_ALLOWED_HOSTS: ${GEV_ALLOWED_HOSTS:-}
+      CESIUM_ION_TOKEN: ${CESIUM_ION_TOKEN:-}
+      GOOGLE_MAPS_API_KEY: ${GOOGLE_MAPS_API_KEY:-}
+      GOOGLE_MAPS_SERVER_API_KEY: ${GOOGLE_MAPS_SERVER_API_KEY:-}
+      MAPILLARY_CLIENT_TOKEN: ${MAPILLARY_CLIENT_TOKEN:-}
+      OPENAI_API_KEY: ${OPENAI_API_KEY:-}
+      AISSTREAM_API_KEY: ${AISSTREAM_API_KEY:-}
+      FIRMS_MAP_KEY: ${FIRMS_MAP_KEY:-}
+      TOMTOM_API_KEY: ${TOMTOM_API_KEY:-}
+      OPENSKY_CLIENT_ID: ${OPENSKY_CLIENT_ID:-}
+      OPENSKY_CLIENT_SECRET: ${OPENSKY_CLIENT_SECRET:-}
+      LL2_API_TOKEN: ${LL2_API_TOKEN:-}
+      GEV_RATELIMIT_OPENAI_PER_MIN: ${GEV_RATELIMIT_OPENAI_PER_MIN:-}
+      GEV_RATELIMIT_GOOGLE_PER_MIN: ${GEV_RATELIMIT_GOOGLE_PER_MIN:-}
